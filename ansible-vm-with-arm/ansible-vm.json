@@ -76,37 +76,17 @@
       {
         "type": "Microsoft.Network/publicIPAddresses",
         "apiVersion": "2020-05-01",
-        "name": "[variables('publicIPAddressName')]",
+        "name": "[variables('publicIPAddressName')[copyIndex()]]",
         "location": "[parameters('location')]",
+        "copy": {
+          "name": "pubIPCopy",
+          "count": "[length(parameters('vmNames'))]"
+        },
         "properties": {
           "publicIPAllocationMethod": "Dynamic"
         },
         "sku": {
           "name": "Basic"
-        }
-      },
-      {
-        "comments": "Simple Network Security Group for subnet [variables('vNetSubnetName')]",
-        "type": "Microsoft.Network/networkSecurityGroups",
-        "apiVersion": "2020-05-01",
-        "name": "[variables('networkSecurityGroupName2')]",
-        "location": "[parameters('location')]",
-        "properties": {
-          "securityRules": [
-            {
-              "name": "default-allow-22",
-              "properties": {
-                "priority": 1000,
-                "access": "Allow",
-                "direction": "Inbound",
-                "destinationPortRange": "22",
-                "protocol": "Tcp",
-                "sourceAddressPrefix": "*",
-                "sourcePortRange": "*",
-                "destinationAddressPrefix": "*"
-              }
-            }
-          ]
         }
       },
       {
@@ -140,11 +120,11 @@
         "type": "Microsoft.Network/networkInterfaces",
         "apiVersion": "2020-05-01",
         "name": "[concat(parameters('vmNames')[copyIndex()],'-nic')]",
-        "location": "[parameters('location')]",
-        "copy" : {
+        "copy": {
           "name": "nicCopy",
           "count": "[length(parameters('vmNames'))]"
         },
+        "location": "[parameters('location')]",
         "dependsOn": [
           "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]",
           "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]",
@@ -153,7 +133,7 @@
         "properties": {
           "ipConfigurations": [
             {
-              "name": "ipconfig",
+              "name": "ipconfig1",
               "properties": {
                 "privateIPAllocationMethod": "Dynamic",
                 "publicIPAddress": {
