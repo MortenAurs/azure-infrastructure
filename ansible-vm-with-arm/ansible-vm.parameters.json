@@ -19,8 +19,8 @@
       },
       "vmNames": {
         "value": [
-          "ansible-controller-vm",
-          "ansible-target-vm"
+          "ansible-controller",
+          "ansible-target"
         ]
       }
     }
