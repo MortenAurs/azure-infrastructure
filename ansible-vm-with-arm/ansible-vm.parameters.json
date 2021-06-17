@@ -16,6 +16,12 @@
       },
       "vmSize": {
         "value": "Standard_B2s"
+      },
+      "vmNames": {
+        "value": [
+          "[concat(parameters('projectName'),'-controller')]",
+          "[concat(parameters('projectName'),'-target')]"
+        ]
       }
     }
   }

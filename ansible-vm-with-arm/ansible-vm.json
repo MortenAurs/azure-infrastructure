@@ -15,6 +15,9 @@
           "description": "Specifies the location for all resources."
         }
       },
+      "vmNames": {
+        "type": "array"
+      },
       "adminUsername": {
         "type": "string",
         "metadata": {
@@ -40,7 +43,6 @@
       "vNetAddressPrefixes": "10.0.0.0/16",
       "vNetSubnetName": "default",
       "vNetSubnetAddressPrefix": "10.0.0.0/24",
-      "vmName": "[concat(parameters('projectName'), '-vm')]",
       "publicIPAddressName": "[concat(parameters('projectName'), '-ip')]",
       "networkInterfaceName": "[concat(parameters('projectName'), '-nic')]",
       "networkSecurityGroupName": "[concat(parameters('projectName'), '-nsg')]",
@@ -164,8 +166,12 @@
       {
         "type": "Microsoft.Compute/virtualMachines",
         "apiVersion": "2019-12-01",
-        "name": "[variables('vmName')]",
+        "name": "[parameters('vmNames')[copyIndex()]]",
         "location": "[parameters('location')]",
+        "copy" : {
+          "name": "vmCopy",
+          "count": "[length(parameters('vmNames'))]"
+        },
         "dependsOn": [
           "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
         ],
@@ -174,7 +180,7 @@
             "vmSize": "[parameters('vmSize')]"
           },
           "osProfile": {
-            "computerName": "[variables('vmName')]",
+            "computerName": "[parameters('vmNames')[copyIndex()]]",
             "adminUsername": "[parameters('adminUsername')]",
             "linuxConfiguration": {
               "disablePasswordAuthentication": true,
@@ -202,11 +208,20 @@
           "networkProfile": {
             "networkInterfaces": [
               {
-                "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
+                "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('vmNames')[copyIndex()],'-nic'))]"
               }
             ]
           }
         }
       }
-    ]
+    ],
+    "outputs": {
+      "vmIPs": {
+        "type": "array",
+        "copy": {
+          "count": "[length(parameters('vmNames'))]",
+          "input": "[reference(concat(parameters('vmNames')[copyIndex()],'-nic')).ipConfigurations[0].properties.privateIPAddress]"
+        }
+      }
+    }
   }
