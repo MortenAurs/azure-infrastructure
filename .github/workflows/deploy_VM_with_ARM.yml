@@ -4,6 +4,10 @@ name: Deploy Ansible VM with ARM templates
 
 # Controls when the action will run. 
 on:
+   # Triggers the workflow on push events but only for the create-target-vm branch
+  push:
+    branches: [ create-target-vm ]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
