@@ -172,9 +172,7 @@
           "name": "vmCopy",
           "count": "[length(parameters('vmNames'))]"
         },
-        "dependsOn": [
-          "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
-        ],
+
         "properties": {
           "hardwareProfile": {
             "vmSize": "[parameters('vmSize')]"
@@ -202,7 +200,7 @@
               "version": "latest"
             },
             "osDisk": {
-              "createOption": "fromImage"
+              "createOption": "FromImage"
             }
           },
           "networkProfile": {
