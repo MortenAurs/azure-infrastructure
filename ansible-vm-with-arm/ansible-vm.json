@@ -166,7 +166,7 @@
       {
         "type": "Microsoft.Compute/virtualMachines",
         "apiVersion": "2019-12-01",
-        "name": "[parameters('vmNames')[copyIndex()]]-vm",
+        "name": "[concat(parameters('vmNames')[copyIndex()], '-vm')]",
         "location": "[parameters('location')]",
         "copy" : {
           "name": "vmCopy",
