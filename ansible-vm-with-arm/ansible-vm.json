@@ -139,8 +139,12 @@
       {
         "type": "Microsoft.Network/networkInterfaces",
         "apiVersion": "2020-05-01",
-        "name": "[variables('networkInterfaceName')]",
+        "name": "[concat(parameters('vmNames')[copyIndex()],'-nic')]",
         "location": "[parameters('location')]",
+        "copy" : {
+          "name": "nicCopy",
+          "count": "[length(parameters('vmNames'))]"
+        },
         "dependsOn": [
           "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]",
           "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]",
@@ -149,7 +153,7 @@
         "properties": {
           "ipConfigurations": [
             {
-              "name": "ipconfig1",
+              "name": "ipconfig",
               "properties": {
                 "privateIPAllocationMethod": "Dynamic",
                 "publicIPAddress": {
