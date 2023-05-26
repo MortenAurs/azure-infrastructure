@@ -159,3 +159,5 @@ resource "azurerm_linux_virtual_machine" "terraformvm" {
         environment = "Terraform Deployment"
     }
 }
+
+Add content
