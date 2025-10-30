@@ -1,4 +1,4 @@
 using '../../main.bicep'
 
 param kvName = 'moaur-kv'
-param testSecret = readEnvironmentVariable('testSecret')
+param testSecret = readEnvironmentVariable('TEST_SECRET')
