@@ -9,25 +9,7 @@ on:
 jobs:
   deploy-bicep:
     name: Deploy bicep
-    runs-on: ubuntu-latest
-    environment: development
-    permissions:
-      id-token: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Azure login
-        uses: azure/login@v2
-        with:
-          client-id: ${{ vars.AZURE_CLIENT_ID }}
-          tenant-id: ${{ vars.AZURE_TENANT_ID }}
-          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Azure CLI script
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az account show
-            az deployment group create --resource-group moaur-kv-test --parameters ./bicep/parameters/development/main.bicepparam
+    uses: ./.github/workflows/reusable_deploy.yml
+    with:
+      rg_name: moaur-kv-test
+    secrets: inherit
