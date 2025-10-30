@@ -1,0 +1,15 @@
+---
+name: Deploy bicep
+
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  deploy-bicep:
+    name: Deploy bicep
+    uses: ./.github/workflows/reusable_deploy.yml
+    with:
+      rg_name: moaur-kv-test
+    secrets: inherit
