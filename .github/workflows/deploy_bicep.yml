@@ -32,4 +32,4 @@ jobs:
           azcliversion: latest
           inlineScript: |
             az account show
-            az deployment group create --resource-group moaur-kv-test --parameters ./bicep/parameters/development/main.bicepparam --parameters TEST_SECRET="${{ secrets.TEST_SECRET }}"
+            az deployment group create --resource-group moaur-kv-test --parameters ./bicep/parameters/development/main.bicepparam --parameters testSecret="${{ secrets.TEST_SECRET }}"
