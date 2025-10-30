@@ -10,7 +10,7 @@ module keyvault 'br/public:avm/res/key-vault/vault:0.13.3' =  {
     enablePurgeProtection: false
     secrets: [
       {
-        name: 'test-secret6'
+        name: 'test-secret7'
         value: testSecret
       }
     ]
