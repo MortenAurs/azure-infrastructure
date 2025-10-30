@@ -10,6 +10,8 @@ jobs:
     name: Deploy bicep
     runs-on: ubuntu-latest
     environment: development
+    env:
+      TEST_SECRET: ${{ secrets.TEST_SECRET }}
     permissions:
       id-token: write
     steps:
@@ -29,4 +31,4 @@ jobs:
           azcliversion: latest
           inlineScript: |
             az account show
-            az deployment group create --resource-group moaur-kv-test --parameters ./bicep/parameters/development/main.bicepparam
+            az deployment group create --resource-group moaur-kv-test --parameters ./bicep/parameters/development/main.bicepparam --parameters testSecret="${{ secrets.TEST_SECRET }}"
