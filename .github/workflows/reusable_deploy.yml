@@ -16,6 +16,7 @@ jobs:
       testSecret: ${{ secrets.TEST_SECRET }}
     permissions:
       id-token: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
