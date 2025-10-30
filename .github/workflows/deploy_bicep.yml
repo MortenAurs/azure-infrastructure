@@ -11,8 +11,6 @@ jobs:
     name: Deploy bicep
     runs-on: ubuntu-latest
     environment: development
-    env:
-      TEST_SECRET: ${{ secrets.TEST_SECRET }}
     permissions:
       id-token: write
     steps:
