@@ -29,4 +29,4 @@ jobs:
           azcliversion: latest
           inlineScript: |
             az account show
-            az deployment group create --resource-group moaur-kv-test --parameters ./bicep/development/main.bicepparam
+            az deployment group create --resource-group moaur-kv-test --parameters ./bicep/parameters/development/main.bicepparam
