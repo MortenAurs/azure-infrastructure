@@ -4,6 +4,7 @@ name: Deploy bicep
 on:
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   deploy-bicep:
