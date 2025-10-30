@@ -1,5 +1,6 @@
 param kvName string
 @secure()
+@minLength(1)
 param testSecret string
 
 module keyvault 'br/public:avm/res/key-vault/vault:0.13.3' =  {
