@@ -34,6 +34,4 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az account show
-            az deployment group create --resource-group $resource_group
-            --parameters ./bicep/parameters/development/main.bicepparam
+            az deployment group create --resource-group $resource_group --parameters ./bicep/parameters/development/main.bicepparam
