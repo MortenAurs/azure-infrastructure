@@ -1,0 +1,28 @@
+---
+name: Deploy bicep
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  deploy-bicep:
+    name: Deploy bicep
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
